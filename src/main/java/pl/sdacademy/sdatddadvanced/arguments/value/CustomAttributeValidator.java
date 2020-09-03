@@ -1,4 +1,4 @@
-package pl.sdacademy.sdatddadvanced.exceptions;
+package pl.sdacademy.sdatddadvanced.arguments.value;
 
 import java.util.List;
 import java.util.Objects;
