@@ -2,6 +2,7 @@ package pl.sdacademy.sdatddadvanced.arguments.enums;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,13 +18,11 @@ public enum Role {
   private final List<AccessType> accessTypes;
 
   Role(final AccessType accessType, final AccessType ...accessTypes) {
-    this.accessTypes = Arrays.asList(accessTypes);
+    this.accessTypes = new ArrayList<>(Arrays.asList(accessTypes));
     this.accessTypes.add(accessType);
   }
 
   Role() {
     this.accessTypes = Arrays.asList(AccessType.values());
   }
-
-
 }
