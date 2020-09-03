@@ -14,6 +14,7 @@ public class User {
   private String lastName;
   private String email;
   private Role role;
+  private Long timestamp;
 
   public boolean hasAccessType(final AccessType accessType) {
     return false;
