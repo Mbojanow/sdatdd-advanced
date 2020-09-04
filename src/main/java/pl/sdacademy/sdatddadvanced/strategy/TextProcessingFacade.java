@@ -13,13 +13,13 @@ public class TextProcessingFacade {
     this.conversionStrategyProvider = conversionStrategyProvider;
   }
 
-  public void process(final String[] args) {
+  public String process(final String[] args) {
     customCommandLineParser.parse(args);
     final String content = fileContentProvider
         .readContent(customCommandLineParser.getFilePathArgValue());
     final TextConversionStrategy conversionStrategy
         = conversionStrategyProvider
         .getStrategy(customCommandLineParser.getConversionTypeArgValue());
-    System.out.println(conversionStrategy.modify(content));
+    return conversionStrategy.modify(content);
   }
 }

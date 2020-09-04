@@ -1,7 +1,6 @@
 package pl.sdacademy.sdatddadvanced.strategy;
 
 import org.apache.commons.cli.*;
-import pl.sdacademy.prog.stra.GenericException;
 
 public class CustomCommandLineParser {
 

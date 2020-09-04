@@ -1,7 +1,5 @@
 package pl.sdacademy.sdatddadvanced.strategy;
 
-import pl.sdacademy.prog.stra.GenericException;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
