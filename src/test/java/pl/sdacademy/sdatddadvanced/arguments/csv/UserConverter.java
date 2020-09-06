@@ -2,6 +2,7 @@ package pl.sdacademy.sdatddadvanced.arguments.csv;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -20,8 +21,10 @@ public class UserConverter implements ArgumentConverter {
         throw new IllegalArgumentException("Unknown data for User conversion");
       }
       //2020-10-10
-      User.builder()
-          .timestamp(LocalDate.parse(splitUserData[1]).getLong(ChronoUnit.MILLIS))
+      return User.builder()
+          //
+          .timestamp(LocalDate.parse(splitUserData[1])
+              .atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000)
           .firstName(splitUserData[0])
           .build();
     }
