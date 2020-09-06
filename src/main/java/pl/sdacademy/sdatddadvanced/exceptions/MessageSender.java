@@ -8,8 +8,8 @@ public class MessageSender {
   private final EmailClient emailClient;
 
   public MessageSender(final UserRepository userRepository, final EmailClient emailClient) {
-    this.userRepository = userRepository;
-    this.emailClient = emailClient;
+    this.userRepository = userRepository; // new UserRepository
+    this.emailClient = emailClient; // new EmailCLient
   }
 
   public Message sendMessage(final User from, final User to, final String value) {

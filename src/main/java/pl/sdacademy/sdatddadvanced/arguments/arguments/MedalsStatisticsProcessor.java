@@ -11,7 +11,7 @@ public class MedalsStatisticsProcessor {
   public List<String> getTopCountries(final List<MedalsStatistics> allMedalsStatistics,
                                       StatisticsType statisticsType) {
     return allMedalsStatistics.stream()
-        .collect(Collectors.groupingBy(MedalsStatistics::getGolds))
+        .collect(Collectors.groupingBy(medalsStatistics -> getAggregator(statisticsType).apply(medalsStatistics)))
         .entrySet().stream()
         .max(Comparator.comparingInt(Map.Entry::getKey))
         .map(Map.Entry::getValue)

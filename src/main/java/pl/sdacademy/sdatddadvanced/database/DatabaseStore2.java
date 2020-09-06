@@ -3,14 +3,21 @@ package pl.sdacademy.sdatddadvanced.database;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
+
+import pl.sdacademy.sdatddadvanced.arguments.enums.User;
+import pl.sdacademy.sdatddadvanced.exceptions.EmailAlreadyTakenException;
+import pl.sdacademy.sdatddadvanced.exceptions.UserRepository;
 
 public class DatabaseStore2 {
 
     private final List<String> data = new ArrayList<>();
     private final DatabaseConnection databaseConnection;
+    private final UserRepository userRepository;
 
-    public DatabaseStore2(final DatabaseConnection databaseConnection) {
+    public DatabaseStore2(final DatabaseConnection databaseConnection, final UserRepository userRepository) {
         this.databaseConnection = databaseConnection;
+        this.userRepository = userRepository;
     }
 
     public void clean() {
@@ -21,11 +28,19 @@ public class DatabaseStore2 {
         if (!tryOpenDatabaseConnectionIfClosed()) {
             throw new DatabaseStoreException("Connection is not opened. Cannot add data");
         }
-        data.addAll(Arrays.asList(values));
+        Stream.of(values).forEach(value -> {
+            try {
+                userRepository.add(
+                    User.builder().firstName(value).build()
+                );
+            } catch (EmailAlreadyTakenException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private boolean tryOpenDatabaseConnectionIfClosed() {
-        if (databaseConnection.isOpened()) {
+        if (!databaseConnection.isOpened()) {
             databaseConnection.open();
         }
         return databaseConnection.isOpened();
