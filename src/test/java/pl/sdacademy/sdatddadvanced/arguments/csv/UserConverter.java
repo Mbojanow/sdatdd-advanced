@@ -1,29 +1,30 @@
 package pl.sdacademy.sdatddadvanced.arguments.csv;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.ArgumentConverter;
+
 import pl.sdacademy.sdatddadvanced.arguments.enums.User;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-
 public class UserConverter implements ArgumentConverter {
-
   @Override
-  public Object convert(final Object source, final ParameterContext context) throws ArgumentConversionException {
-    if (source instanceof String) {
-      final String data = (String)source;
-      String[] splitData = data.split("/");
-      if (splitData.length != 2) {
-        throw new RuntimeException("Cannot convert");
+  public Object convert(final Object o, final ParameterContext parameterContext) throws ArgumentConversionException {
+    if (o instanceof String) {
+      final String userString = (String) o;
+      final String[] splitUserData = userString.split("/");
+      if (splitUserData.length != 2) {
+        throw new IllegalArgumentException("Unknown data for User conversion");
       }
-      LocalDate parsedDate = LocalDate.parse(splitData[1]);
-      return User.builder()
-          .firstName(splitData[0])
-          .timestamp(parsedDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli())
+      //2020-10-10
+      User.builder()
+          .timestamp(LocalDate.parse(splitUserData[1]).getLong(ChronoUnit.MILLIS))
+          .firstName(splitUserData[0])
           .build();
     }
-    throw new RuntimeException("BOOM");
+    throw new IllegalArgumentException("Cannot convert user");
   }
 }

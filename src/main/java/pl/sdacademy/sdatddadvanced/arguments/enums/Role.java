@@ -12,17 +12,16 @@ public enum Role {
   READER(AccessType.READ),
   CRUD_ADMIN(AccessType.READ, AccessType.CREATE, AccessType.DELETE, AccessType.UPDATE),
   HELP_DESK(AccessType.REVOKE, AccessType.GRANT),
-  SUPER_ADMIN();
+  SUPER_ADMIN("all_roles");
 
 
   private final List<AccessType> accessTypes;
 
-  Role(final AccessType accessType, final AccessType ...accessTypes) {
+  Role(final AccessType ...accessTypes) {
     this.accessTypes = new ArrayList<>(Arrays.asList(accessTypes));
-    this.accessTypes.add(accessType);
   }
 
-  Role() {
+  Role(String all) {
     this.accessTypes = Arrays.asList(AccessType.values());
   }
 }
