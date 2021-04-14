@@ -27,3 +27,4 @@ public class UserConverter implements ArgumentConverter {
     throw new RuntimeException("BOOM");
   }
 }
+
