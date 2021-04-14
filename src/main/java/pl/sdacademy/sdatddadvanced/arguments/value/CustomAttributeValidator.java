@@ -9,7 +9,12 @@ public class CustomAttributeValidator {
     return customAttributes.stream()
         .filter(customAttribute -> !customAttribute.getName().isBlank())
         .filter(customAttribute -> Objects.nonNull(customAttribute.getValue()))
+        .filter(customAttribute -> isNameValid(customAttribute.getName()))
         .distinct()
         .count() == customAttributes.size();
+  }
+
+  public boolean isNameValid(String attributeName) {
+    return attributeName != null && !attributeName.isBlank() && attributeName.startsWith("ATTR_");
   }
 }
