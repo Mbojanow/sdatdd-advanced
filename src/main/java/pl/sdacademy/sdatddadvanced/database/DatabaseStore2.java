@@ -25,7 +25,7 @@ public class DatabaseStore2 {
     }
 
     private boolean tryOpenDatabaseConnectionIfClosed() {
-        if (databaseConnection.isOpened()) {
+        if (!databaseConnection.isOpened()) {
             databaseConnection.open();
         }
         return databaseConnection.isOpened();

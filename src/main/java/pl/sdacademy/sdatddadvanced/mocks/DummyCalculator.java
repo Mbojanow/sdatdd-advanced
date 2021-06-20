@@ -6,6 +6,7 @@ import pl.sdacademy.sdatddadvanced.exceptions.UserRepository;
 
 import java.util.List;
 
+
 public class DummyCalculator {
 
   private final SomeDependency someDependency;
